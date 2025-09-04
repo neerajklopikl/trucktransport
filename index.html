@@ -1,0 +1,2439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transportation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --navbar-height: 161.225px; /* Approximate height for large screens */
+            --navbar-width: 100%; /* Full width */
+            --link-color: #333;
+            --button-bg-color: #2f5f4b; /* Dark green from buttons in screenshot */
+            --button-hover-color: #1e3f30;
+            --spacing-desktop: 30px; /* Consistent spacing for desktop links */
+            --spacing-buttons: 15px; /* Spacing between buttons */
+            --spacing-links-to-buttons: 40px; /* Increased spacing between last link and first button */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff; /* White background as per screenshot */
+            color: #333;
+            padding: 10px 5%; /* Responsive padding */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: var(--navbar-height); /* Set height for larger screens */
+            width: var(--navbar-width); /* Set width for larger screens */
+            position: relative; /* For z-index and overflow if needed */
+        }
+
+        .navbar-logo {
+            flex-shrink: 0;
+        }
+
+        .navbar-logo img {
+            height: 100px; /* Adjust logo size as needed */
+            width: auto;
+            display: block;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: var(--spacing-desktop); /* Space between links */
+            align-items: center; /* Align links vertically in the center */
+        }
+
+        .nav-links li a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-size: 1.1em;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+            white-space: nowrap; /* Prevent text wrapping for single links */
+        }
+
+        .nav-links li a:hover {
+            color: var(--button-bg-color);
+        }
+
+        .navbar-buttons {
+            display: flex;
+            gap: var(--spacing-buttons); /* Space between buttons */
+            margin-left: var(--spacing-links-to-buttons); /* Space between last link and first button */
+        }
+
+        .navbar-buttons .btn {
+            background-color: var(--button-bg-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            white-space: nowrap; /* Prevent button text wrapping */
+        }
+
+        .navbar-buttons .btn:hover {
+            background-color: var(--button-hover-color);
+        }
+
+        .hamburger {
+            display: none; /* Hidden by default */
+            font-size: 2em;
+            cursor: pointer;
+            color: var(--link-color);
+        }
+
+        /* --- Responsive Styles --- */
+
+        /* Tablet and Mobile */
+        @media (max-width: 1024px) {
+            .navbar {
+                height: auto; /* Allow height to adjust */
+                min-height: 80px; /* Minimum height for smaller screens */
+                padding: 10px 3%;
+            }
+            .navbar-buttons .btn {
+        /* Add or update these properties */
+        display: flex; /* Make it a flex container */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        text-align: center; /* Fallback for older browsers, though flex handles it */
+    }
+
+            .nav-links {
+                display: none; /* Hide navigation links by default */
+                flex-direction: column;
+                width: 100%;
+                background-color: #fff;
+                position: absolute;
+                top: 100%; /* Position below the navbar */
+                left: 0;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+                gap: 15px; /* Smaller gap for mobile links */
+            }
+
+            .nav-links.active {
+                display: flex; /* Show when active */
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links li a {
+                display: block;
+                padding: 10px 0;
+                border-bottom: 1px solid #eee;
+            }
+
+            .nav-links li:last-child a {
+                border-bottom: none;
+            }
+
+            .navbar-buttons.desktop-buttons {
+                display: none; /* Hide desktop buttons when hamburger is active */
+            }
+            
+            /* Show mobile buttons when menu is active */
+            .navbar-buttons.mobile-buttons { /* Renamed class for clarity */
+                display: flex;
+                flex-direction: column;
+                gap: 10px; /* Smaller gap for mobile buttons */
+                margin-top: 20px; /* Space from links */
+            }
+
+            .hamburger {
+                display: block; /* Show hamburger icon */
+            }
+        }
+
+        /* Mobile specific adjustments */
+        @media (max-width: 768px) {
+            .navbar-logo img {
+                height: 80px; /* Smaller logo on mobile */
+            }
+
+            .navbar-buttons .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+        }
+
+        /* Even smaller mobile screens */
+        @media (max-width: 480px) {
+            .navbar-logo img {
+                height: 70px;
+            }
+            .navbar {
+                padding: 10px 2%;
+            }
+        }
+        /* Carousel Container */
+.carousel-container {
+    position: relative;
+    width: 1520.8px; /* Fixed width for desktop */
+    height: 514.85px; /* Fixed height for desktop */
+    overflow: hidden;
+    margin: 0 auto; /* Center the carousel */
+    background-color: #f0f0f0; /* Fallback background */
+}
+
+/* Individual Slides */
+.carousel-slides {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s ease-in-out; /* Smooth slide transition */
+}
+
+.carousel-slide {
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex; /* Use flex to align content within the slide */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically (if needed) */
+    background-size: cover; /* Ensure image covers the slide area */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure image covers and maintains aspect ratio */
+    display: block;
+}
+
+/* Text Overlay on Slides */
+.carousel-text {
+    position: absolute;
+    top: 50%; /* Adjust vertical position */
+    left: 55%; 
+    transform: translateY(-50%); /* Center vertically relative to its own height */
+    color: white;
+    text-align: left;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background for readability */
+    border-radius: 8px;
+    max-width: 45%; /* Control text box width */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.carousel-text h1,
+.carousel-text h2,
+.carousel-text h3 {
+    margin: 0;
+    padding: 5px 0;
+    font-weight: bold;
+}
+
+.carousel-text h1 {
+    font-size: 3.5em; /* Large size for main heading */
+    color: #4a806c; 
+}
+
+.carousel-text h2 {
+    font-size: 1.8em;
+    font-weight: normal;
+}
+.carousel-text h3 {
+    font-size: 1.5em;
+    font-weight: normal;
+    color: #00b0f0; 
+}
+
+/* Adjustments for specific slide text alignment */
+.carousel-slide .center-text {
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.carousel-slide .center-text h1 {
+    color: #fff; 
+}
+
+
+/* Carousel Navigation Buttons */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent white */
+    border: none;
+    color: #333; /* Dark arrow color */
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 1.8em;
+    transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease;
+    border-radius: 50%; /* Circular shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px; /* Fixed width for circular button */
+    height: 60px; /* Fixed height for circular button */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-btn.prev {
+    left: 20px;
+}
+
+.carousel-btn.next {
+    right: 20px;
+}
+
+/* Hover Effect for Buttons  */
+.carousel-btn:hover {
+    background-color: white; /* Solid white background */
+    color: #4a806c; /* Green arrow color on hover */
+    /* Extend arrow effect by changing padding or width of the button itself */
+    padding: 15px 25px; /* Slightly wider padding to mimic extension */
+    width: 70px; /* Example of extending width on hover */
+    /* You might need to adjust 'left'/'right' properties slightly if width changes to keep it visually centered */
+}
+
+/* Font Awesome Icons for Arrows */
+.carousel-btn i {
+    pointer-events: none; /* Ensure clicks pass through to the button */
+}
+
+/* Responsive adjustments for Carousel */
+@media (max-width: 1520px) { /* Adjust breakpoint if needed */
+    .carousel-container {
+        width: 100%; /* Make carousel full width on smaller screens */
+        height: 400px; /* Adjust height for medium screens */
+    }
+
+    .carousel-text {
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 80%; /* Allow text to take more width */
+        text-align: center;
+    }
+    .carousel-text h1 {
+        font-size: 2.5em;
+    }
+    .carousel-text h2 {
+        font-size: 1.3em;
+    }
+    .carousel-text h3 {
+        font-size: 1.1em;
+    }
+    .carousel-slide .center-text {
+        left: 50%; /* Ensure it stays centered */
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-container {
+        height: 300px; /* Adjust height for tablets */
+    }
+
+    .carousel-text {
+        padding: 15px;
+        max-width: 90%;
+    }
+    .carousel-text h1 {
+        font-size: 1.8em;
+    }
+    .carousel-text h2 {
+        font-size: 1em;
+    }
+    .carousel-text h3 {
+        font-size: 0.9em;
+    }
+
+    .carousel-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+        padding: 10px; /* Reduced padding for smaller buttons */
+    }
+    .carousel-btn.prev {
+        left: 10px;
+    }
+    .carousel-btn.next {
+        right: 10px;
+    }
+    .carousel-btn:hover {
+        padding: 10px 18px; /* Adjusted hover padding for smaller buttons */
+        width: 55px; /* Adjusted hover width */
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-container {
+        height: 200px; /* Further adjust height for mobile phones */
+    }
+    .carousel-text {
+        padding: 10px;
+    }
+    .carousel-text h1 {
+        font-size: 1.3em;
+    }
+    .carousel-text h2 {
+        font-size: 0.8em;
+    }
+    .carousel-text h3 {
+        font-size: 0.7em;
+    }
+    .carousel-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1em;
+        padding: 5px;
+    }
+    .carousel-btn:hover {
+        padding: 5px 12px;
+        width: 45px;
+    }
+}
+/* Services Section Styling */
+.services-section {
+    padding: 60px 5%; /* Responsive padding for the whole section */
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.services-header {
+    margin-bottom: 50px;
+    position: relative; /* Needed for positioning the green line */
+    display: inline-block; /* To make the green line width respect content */
+}
+
+.services-header h2 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 10px;
+    position: relative; /* For the green line under 'Our Services' */
+    padding-bottom: 15px; /* Space for the line */
+}
+
+/* Green line below "Our Services" */
+.services-header h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 100px; /* Adjust width of the green line */
+    height: 4px; /* Thickness of the green line */
+    background-color: #4a806c; 
+    border-radius: 2px;
+}
+
+.services-header p {
+    font-size: 1.1em;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.services-grid {
+    display: grid;
+    /* Forces 3 columns on desktop, even if screen is slightly smaller, 
+       then breaks down responsively */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px; /* Space between grid items */
+    max-width: 1200px; /* Max width for the grid to keep items grouped */
+    margin: 0 auto; /* Center the grid */
+}
+
+.service-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* Soft shadow */
+    overflow: hidden; /* Ensures image corners are rounded */
+    text-align: center;
+    padding-bottom: 20px; /* Padding below content */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    justify-content: space-between; /* Distribute space */
+}
+
+.service-item:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.service-image {
+    width: 100%;
+    height: 200px; /* Fixed height for consistent image size */
+    overflow: hidden; /* Hide overflowing parts of the image */
+    margin-bottom: 20px; /* Space below image */
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the area while maintaining aspect ratio */
+    transition: transform 0.3s ease; /* Smooth zoom effect */
+}
+
+.service-item:hover .service-image img {
+    transform: scale(1.05); /* Slight zoom on image hover */
+}
+
+.service-item h3 {
+    font-size: 1.4em;
+    color: #333;
+    margin-bottom: 10px;
+    padding: 0 15px; /* Add horizontal padding for text */
+    position: relative; /* For the green line below service title */
+    padding-bottom: 10px; /* Space for the line */
+}
+
+/* Green line below each service item title */
+.service-item h3::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 60px; /* Adjust width of the green line under titles */
+    height: 3px; /* Thickness of the green line */
+    background-color: #4a806c; 
+    border-radius: 1.5px;
+}
+
+.service-item p {
+    font-size: 0.95em;
+    color: #555;
+    line-height: 1.5;
+    flex-grow: 1; /* Allow paragraph to take up available space */
+    padding: 0 20px; /* Add horizontal padding */
+    margin-bottom: 15px;
+}
+
+.service-item .read-more {
+    display: inline-block;
+    color: #4a806c; /* Green color from your brand */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95em;
+    transition: color 0.3s ease;
+    padding: 0 20px; /* Ensure consistent padding for read more link */
+}
+
+.service-item .read-more:hover {
+    color: #2f5f4b; /* Darker green on hover */
+    text-decoration: underline;
+}
+
+/* Responsive adjustments for Services Section */
+
+/* Tablet and smaller desktops */
+@media (max-width: 1024px) {
+    .services-section {
+        padding: 40px 3%;
+    }
+    .services-header h2 {
+        font-size: 2em;
+    }
+    .services-header h2::after {
+        width: 80px; /* Adjust for smaller screens */
+    }
+    .services-header p {
+        font-size: 1em;
+    }
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+        gap: 25px;
+        max-width: 900px; /* Adjust max-width for tablet grid */
+    }
+    .service-image {
+        height: 180px;
+    }
+    .service-item h3 {
+        font-size: 1.2em;
+    }
+    .service-item h3::after {
+        width: 50px; /* Adjust for smaller screens */
+    }
+    .service-item p {
+        font-size: 0.9em;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .services-section {
+        padding: 30px 2%;
+    }
+    .services-header h2 {
+        font-size: 1.8em;
+    }
+    .services-header h2::after {
+        width: 70px;
+    }
+    .services-header p {
+        font-size: 0.9em;
+    }
+    .services-grid {
+        grid-template-columns: 1fr; /* Single column layout for mobile */
+        gap: 25px;
+        max-width: 400px; /* Limit width of single column items */
+    }
+    .service-image {
+        height: 220px; /* Adjust height for single column image */
+    }
+    .service-item {
+        padding-bottom: 15px;
+    }
+    .service-item h3 {
+        font-size: 1.3em;
+    }
+    .service-item h3::after {
+        width: 60px;
+    }
+    .service-item p {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .services-header h2 {
+        font-size: 1.5em;
+    }
+    .services-header h2::after {
+        width: 60px;
+    }
+    .services-header p {
+        font-size: 0.85em;
+    }
+    .service-image {
+        height: 180px;
+    }
+    .service-item h3 {
+        font-size: 1.1em;
+    }
+    .service-item h3::after {
+        width: 50px;
+    }
+}
+/* About Us Section */
+.about-us-section {
+    background-color: #fff; /* White background */
+    padding: 80px 0; /* Vertical padding */
+}
+
+.about-us-content {
+    display: flex;
+    max-width: 1520.8px; /* Based on your previous width */
+    margin: 0 auto; /* Center content */
+    align-items: center; /* Vertically align items */
+    padding: 0 5%; /* Responsive horizontal padding */
+    gap: 50px; /* Space between text and image */
+}
+
+.about-us-text {
+    flex: 1; /* Takes up available space */
+    text-align: left;
+    max-width: 50%; /* Adjust width for text content */
+}
+
+.about-us-text h2 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block; /* To make line below work correctly */
+    padding-bottom: 15px;
+}
+
+/* Green line below "About Us" heading */
+.about-us-text h2::after {
+    content: '';
+    position: absolute;
+    left: 0; /* Align to the left of the text */
+    bottom: 0;
+    width: 100px; /* Width of the green line */
+    height: 4px; /* Thickness */
+    background-color: #4a806c; /* Green color */
+    border-radius: 2px;
+}
+
+.about-us-text h3 {
+    font-size: 1.3em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.about-us-text p {
+    font-size: 1em;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.read-more-btn {
+    display: inline-block;
+    background-color: transparent; /* Transparent background */
+    color: #4a806c; /* Green text */
+    border: 2px solid #4a806c; /* Green border */
+    padding: 12px 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Read More Button Animation  */
+.read-more-btn:hover {
+    background-color: #4a806c; /* Green background on hover */
+    color: white; /* White text on hover */
+    border-color: #4a806c; /* Keep border green */
+}
+
+
+.about-us-image {
+    flex: 1; /* Takes up available space */
+    position: relative;
+    max-width: 50%; /* Adjust width for image container */
+    overflow: hidden;
+    height: 500px; /* Fixed height for the image container, adjust as needed */
+    border-radius: 8px; /* Slightly rounded corners for the image container */
+}
+
+.about-us-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the container */
+    display: block;
+    border-radius: 8px;
+}
+
+/* Celebrating Overlay */
+.celebrating-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the overlay */
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    padding: 30px 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    min-width: 300px; /* Ensure a minimum width */
+
+    /* Initial state for scroll-triggered animation */
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Smooth transition for property changes */
+}
+
+/* New class to trigger the animation when in view */
+.celebrating-overlay.animate {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+.celebrating-overlay .celebrating-text {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.celebrating-overlay .years-block {
+    display: flex;
+    align-items: baseline; /* Align 'years' text to the bottom of the number */
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.celebrating-overlay .big-number {
+    font-size: 6em; /* Large number */
+    font-weight: bold;
+    color: #4a806c; /* Green color */
+    line-height: 1; /* Adjust line height to prevent extra space */
+}
+
+.celebrating-overlay .years-text {
+    font-size: 2em; /* Smaller 'years' text */
+    color: #333;
+    font-weight: bold;
+    margin-left: 10px; /* Space between number and 'years' */
+}
+
+.celebrating-overlay .date-range {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.celebrating-overlay .since-text {
+    font-size: 1em;
+    color: #666;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Keyframe Animation for Celebrating Overlay */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+
+/* Responsive adjustments for About Us Section */
+@media (max-width: 1024px) {
+    .about-us-content {
+        flex-direction: column; /* Stack content vertically */
+        padding: 0 3%;
+        gap: 30px;
+    }
+
+    .about-us-text,
+    .about-us-image {
+        max-width: 100%; /* Take full width */
+    }
+
+    .about-us-text {
+        text-align: center; /* Center text on smaller screens */
+    }
+
+    .about-us-text h2::after {
+        left: 50%; /* Center line under heading */
+        transform: translateX(-50%);
+    }
+
+    .about-us-image {
+        height: 400px; /* Adjust image height */
+    }
+
+    .celebrating-overlay {
+        padding: 20px 30px;
+        min-width: 250px;
+    }
+
+    .celebrating-overlay .big-number {
+        font-size: 5em;
+    }
+
+    .celebrating-overlay .years-text {
+        font-size: 1.8em;
+    }
+
+    .celebrating-overlay .date-range {
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-us-section {
+        padding: 50px 0;
+    }
+    .about-us-content {
+        padding: 0 2%;
+    }
+    .about-us-text h2 {
+        font-size: 2em;
+    }
+    .about-us-text h2::after {
+        width: 80px;
+    }
+    .about-us-text h3 {
+        font-size: 1.1em;
+    }
+    .about-us-text p {
+        font-size: 0.95em;
+    }
+    .read-more-btn {
+        padding: 10px 25px;
+        font-size: 0.9em;
+    }
+    .about-us-image {
+        height: 300px;
+    }
+    .celebrating-overlay {
+        padding: 15px 20px;
+        min-width: 200px;
+    }
+    .celebrating-overlay .big-number {
+        font-size: 4em;
+    }
+    .celebrating-overlay .years-text {
+        font-size: 1.5em;
+    }
+    .celebrating-overlay .date-range {
+        font-size: 1em;
+    }
+    .celebrating-overlay .since-text {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-us-section {
+        padding: 30px 0;
+    }
+    .about-us-text h2 {
+        font-size: 1.8em;
+    }
+    .about-us-text h2::after {
+        width: 70px;
+    }
+    .about-us-text h3 {
+        font-size: 1em;
+    }
+    .about-us-text p {
+        font-size: 0.9em;
+    }
+    .read-more-btn {
+        padding: 8px 20px;
+        font-size: 0.85em;
+    }
+    .about-us-image {
+        height: 250px;
+    }
+    .celebrating-overlay {
+        padding: 10px 15px;
+        min-width: 180px;
+    }
+    .celebrating-overlay .big-number {
+        font-size: 3em;
+    }
+    .celebrating-overlay .years-text {
+        font-size: 1.2em;
+    }
+    .celebrating-overlay .date-range {
+        font-size: 0.9em;
+    }
+    .celebrating-overlay .since-text {
+        font-size: 0.8em;
+    }
+}
+/* Domains Section Styling */
+.domains-section {
+    padding: 80px 5%; /* Padding for the section */
+    background-color: #fff; /* White background */
+    text-align: center;
+}
+
+.domains-header {
+    margin-bottom: 50px;
+    position: relative; /* For the green line */
+    display: inline-block; /* To contain the line under the text */
+}
+
+.domains-header h2 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 10px;
+    padding-bottom: 15px; /* Space for the line */
+}
+
+/* Green line below "Our Specialized Domains" */
+.domains-header h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 150px; /* Adjust width of the green line */
+    height: 4px; /* Thickness of the green line */
+    background-color: #4a806c; /* Green color */
+    border-radius: 2px;
+}
+
+.domains-grid {
+    display: grid;
+    
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 30px; /* Space between grid items */
+    max-width: 1200px; /* Max width to contain the grid and center it */
+    margin: 0 auto; /* Center the grid */
+}
+
+.domain-item {
+    background-color: #fff;
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px;
+    padding: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    overflow: hidden; /* Important for animation bounds */
+    position: relative; /* For overflow effect */
+}
+
+.domain-item:hover {
+    background-color: #e6f7ef; /* Light green background on hover */
+    border-color: #4a806c; /* Green border on hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+}
+
+.domain-icon {
+    width: 80px; /* Size of the icon container */
+    height: 80px;
+    border: 2px solid #ccc; /* Light grey border */
+    border-radius: 50%; /* Circular shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease;
+    overflow: hidden; /* For containing SVG animation */
+    position: relative;
+    z-index: 1; /* Ensure icon is above background effect */
+}
+
+.domain-item:hover .domain-icon {
+    border-color: #4a806c; /* Green border on hover */
+}
+
+.domain-icon img {
+    width: 60%; /* Size of the actual icon inside the circle */
+    height: 60%;
+    object-fit: contain;
+    filter: brightness(0.5); /* Darken initial icon color if it's white/light */
+    transition: filter 0.3s ease, transform 0.3s ease;
+    z-index: 2; /* Ensure icon stays on top */
+}
+
+.domain-item:hover .domain-icon img {
+    filter: brightness(1) saturate(1.5) hue-rotate(90deg); /* Make icon vibrant green/white on hover */
+    transform: scale(1.1); /* Slight zoom for the icon itself */
+}
+
+/* Continuous Hover Animation for Background and Icon */
+.domain-item::before {
+    content: '';
+    position: absolute;
+    top: -100%; /* Start off-screen above */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, #4a806c, transparent); /* Green gradient */
+    transition: top 0s; /* No transition on initial placement */
+    z-index: 0; /* Behind the icon */
+    opacity: 0; /* Start hidden */
+}
+
+.domain-item:hover::before {
+    animation: slideInFromTop 1s linear infinite; /* Continuous animation */
+    opacity: 1; /* Show when hovered */
+}
+
+@keyframes slideInFromTop {
+    0% {
+        top: -100%;
+        opacity: 0; /* Fully hidden at start */
+    }
+    1% {
+        opacity: 1; /* Fade in quickly */
+    }
+    100% {
+        top: 100%; /* Slide down to off-screen below */
+        opacity: 1; /* Stay visible during slide */
+    }
+}
+
+
+.domain-item p {
+    font-size: 0.95em;
+    color: #333;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Responsive adjustments for Domains Section */
+
+/* Tablet and smaller desktops */
+@media (max-width: 1024px) {
+    .domains-section {
+        padding: 60px 3%;
+    }
+    .domains-header h2 {
+        font-size: 2em;
+    }
+    .domains-header h2::after {
+        width: 120px;
+    }
+    .domains-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+        gap: 25px;
+        max-width: 700px; /* Adjust max-width for tablet grid */
+    }
+    .domain-item {
+        padding: 20px 10px;
+    }
+    .domain-icon {
+        width: 70px;
+        height: 70px;
+    }
+    .domain-item p {
+        font-size: 0.85em;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .domains-section {
+        padding: 40px 2%;
+    }
+    .domains-header h2 {
+        font-size: 1.8em;
+    }
+    .domains-header h2::after {
+        width: 100px;
+    }
+    .domains-grid {
+        grid-template-columns: 1fr; /* Single column for mobile */
+        gap: 20px;
+        max-width: 350px; /* Limit width of single column items */
+    }
+    .domain-item {
+        padding: 15px;
+    }
+    .domain-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 10px;
+    }
+    .domain-icon img {
+        width: 55%;
+        height: 55%;
+    }
+    .domain-item p {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .domains-section {
+        padding: 30px 2%;
+    }
+    .domains-header h2 {
+        font-size: 1.5em;
+    }
+    .domains-header h2::after {
+        width: 80px;
+    }
+}
+
+/* Stats Section Styling */
+.stats-section {
+    position: relative;
+    padding: 80px 5%; /* Vertical padding */
+    background-color: #f0f0f0; /* Fallback light background */
+    overflow: hidden; /* For background image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px; /* Minimum height for the section */
+}
+
+.stats-background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Replace with your actual background image */
+    background-image: url('trucktransport/King road carrier background img.png'); /* Corrected path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.2; /* Adjust opacity for a subtle look */
+    z-index: 0; /* Behind content */
+}
+
+
+.stats-grid {
+    display: grid;
+    /* 5 columns on desktop, 1fr each to distribute space evenly */
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 20px; /* Space between items */
+    max-width: 1400px; /* Max width for the grid */
+    margin: 0 auto;
+    position: relative; /* Above background overlay */
+    z-index: 1;
+}
+
+.stat-item {
+    background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white background */
+    border-radius: 10px;
+    padding: 30px 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-item:hover {
+    transform: translateY(-8px); /* Lift effect on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.stat-icon {
+    width: 70px; /* Size of the icon container */
+    height: 70px;
+    border: 2px solid #ccc; /* Light border */
+    border-radius: 50%; /* Circular shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.stat-icon img {
+    width: 60%; /* Size of the actual icon */
+    height: 60%;
+    object-fit: contain;
+    filter: brightness(0.6); /* Slightly darken icon initially */
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover animation for icon and circle  */
+.stat-item:hover .stat-icon {
+    border-color: #4a806c; /* Green border on hover */
+    background-color: #4a806c; /* Green background on hover */
+}
+
+.stat-item:hover .stat-icon img {
+    filter: brightness(0) invert(1); /* Change icon to white */
+    transform: scale(1.1); /* Slight zoom on icon */
+}
+
+
+.stat-value {
+    font-size: 3.5em; /* Large number size */
+    font-weight: bold;
+    color: #4a806c; /* Green color for numbers */
+    margin-bottom: 10px;
+    line-height: 1; /* Remove extra line height */
+}
+
+.stat-item p {
+    font-size: 1em;
+    color: #666;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* Responsive Adjustments for Stats Section */
+
+/* Larger tablets and smaller desktops */
+@media (max-width: 1200px) {
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns */
+        max-width: 900px;
+    }
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+    .stats-section {
+        padding: 60px 3%;
+        min-height: auto;
+    }
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+        gap: 25px;
+        max-width: 600px;
+    }
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
+    }
+    .stat-value {
+        font-size: 2.8em;
+    }
+    .stat-item p {
+        font-size: 0.9em;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .stats-section {
+        padding: 40px 2%;
+    }
+    .stats-grid {
+        grid-template-columns: 1fr; /* Single column for mobile */
+        gap: 20px;
+        max-width: 350px;
+    }
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+    }
+    .stat-value {
+        font-size: 2.2em;
+    }
+    .stat-item p {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 400px) {
+    .stats-value {
+        font-size: 2em;
+    }
+}
+/* Customers Section Styling */
+.customers-section {
+    padding: 80px 5%; /* Vertical padding */
+    background-color: #fff; /* White background */
+    text-align: center;
+}
+
+.customers-header {
+    margin-bottom: 50px;
+    position: relative; /* For the green line */
+    display: inline-block; /* To contain the line under the text */
+}
+
+.customers-header h2 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 10px;
+    padding-bottom: 15px; /* Space for the line */
+}
+
+/* Green line below "Our Happy & Growing Customers" */
+.customers-header h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 150px; /* Adjust width of the green line */
+    height: 4px; /* Thickness of the green line */
+    background-color: #4a806c; /* Green color from your brand */
+    border-radius: 2px;
+}
+
+.testimonial-container {
+    max-width: 800px; /* Max width of the testimonial box and related elements */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; /* Space between elements */
+}
+
+.testimonial-box {
+    background-color: #fff;
+    border: 1px solid #e0f2f1; /* Light green border as seen in screenshot */
+    border-radius: 10px;
+    padding: 40px; /* Ample padding inside the box */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    position: relative;
+    margin-bottom: -50px; /* Pull it up to overlap the image */
+    z-index: 2; /* Ensure it's above the image if needed */
+    text-align: center; /* Center the text inside */
+}
+
+.testimonial-box p {
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.6;
+    font-style: italic; /* As seen in screenshot */
+}
+
+.customer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px; /* Space from the overlapping box */
+    z-index: 1; /* Below the testimonial box but above other content */
+}
+
+.customer-image {
+    width: 100px; /* Size of the circular image */
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #fff; /* White border around image */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Shadow for depth */
+    margin-bottom: 15px;
+}
+
+.customer-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.rating-stars {
+    color: #f7d247; /* Gold color for stars */
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.rating-stars .fas.fa-star {
+    margin: 0 2px; /* Space between stars */
+}
+
+.customer-name {
+    font-size: 1.3em;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 20px; /* Space before dots */
+}
+
+.testimonial-dots {
+    display: flex;
+    gap: 10px; /* Space between dots */
+    margin-top: 20px; /* Space from the name */
+}
+
+.testimonial-dots .dot {
+    width: 12px;
+    height: 12px;
+    background-color: #ccc; /* Grey color for inactive dots */
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.testimonial-dots .dot.active {
+    background-color: #4a806c; /* Green color for active dot */
+}
+
+/* Responsive adjustments for Customers Section */
+
+/* Tablet and smaller desktops */
+@media (max-width: 1024px) {
+    .customers-section {
+        padding: 60px 3%;
+    }
+    .customers-header h2 {
+        font-size: 2em;
+    }
+    .customers-header h2::after {
+        width: 120px;
+    }
+    .testimonial-box {
+        padding: 30px;
+    }
+    .testimonial-box p {
+        font-size: 1em;
+    }
+    .customer-image {
+        width: 90px;
+        height: 90px;
+    }
+    .rating-stars {
+        font-size: 1.1em;
+    }
+    .customer-name {
+        font-size: 1.2em;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .customers-section {
+        padding: 40px 2%;
+    }
+    .customers-header h2 {
+        font-size: 1.8em;
+    }
+    .customers-header h2::after {
+        width: 100px;
+    }
+    .testimonial-box {
+        padding: 25px;
+        margin-bottom: -40px; /* Adjust overlap for mobile */
+    }
+    .testimonial-box p {
+        font-size: 0.9em;
+    }
+    .customer-image {
+        width: 80px;
+        height: 80px;
+        border-width: 3px;
+    }
+    .rating-stars {
+        font-size: 1em;
+    }
+    .customer-name {
+        font-size: 1.1em;
+    }
+    .testimonial-dots .dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .customers-section {
+        padding: 30px 2%;
+    }
+    .customers-header h2 {
+        font-size: 1.5em;
+    }
+    .customers-header h2::after {
+        width: 80px;
+    }
+    .testimonial-box {
+        padding: 20px;
+    }
+    .testimonial-box p {
+        font-size: 0.85em;
+    }
+}
+/* Footer Section */
+.main-footer {
+    position: relative;
+    width: 100%;
+    background-color: #333; /* Fallback dark background */
+    color: #fff;
+    padding-top: 50px; /* Space above content */
+    overflow: hidden; 
+}
+
+.footer-video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0; 
+}
+
+.footer-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the entire container */
+    filter: brightness(0.7) grayscale(0.5); /* Adjust brightness/grayscale for a light background effect */
+    opacity: 0.8; 
+   
+    display: block; 
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5); 
+    z-index: 1; 
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+    max-width: 1520.8px; /* Based on your previous content width */
+    margin: 0 auto;
+    padding: 0 5%; /* Responsive horizontal padding */
+    position: relative;
+    z-index: 2;
+    gap: 40px; /* Space between columns */
+    text-align: left; /* Align text within columns */
+}
+
+.footer-logo-col {
+    flex: 2; /* Give more space to logo column */
+    min-width: 250px; /* Minimum width for responsiveness */
+    padding-right: 20px;
+}
+
+.footer-logo-col img {
+    max-width: 180px; /* Adjust logo size */
+    margin-bottom: 20px;
+    filter: brightness(0) invert(1); /* Makes a dark logo white for dark background */
+}
+
+.footer-logo-col p {
+    font-size: 0.9em;
+    line-height: 1.6;
+    color: #eee;
+}
+
+.footer-links-col,
+.footer-services-col,
+.footer-locations-col {
+    flex: 1; /* Equal space for other columns */
+    min-width: 200px; /* Minimum width for responsiveness */
+}
+
+.footer-links-col h3,
+.footer-services-col h3,
+.footer-locations-col h3 {
+    font-size: 1.3em;
+    color: #fff;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+}
+
+/* Green line below footer headings */
+.footer-links-col h3::after,
+.footer-services-col h3::after,
+.footer-locations-col h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60px; /* Length of the line */
+    height: 3px; /* Thickness of the line */
+    background-color: #4a806c; /* Green color */
+    border-radius: 1.5px;
+}
+
+.footer-links-col ul,
+.footer-services-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links-col ul li,
+.footer-services-col ul li {
+    margin-bottom: 10px;
+}
+
+.footer-links-col ul li a,
+.footer-services-col ul li a {
+    color: #eee;
+    text-decoration: none;
+    font-size: 0.95em;
+    transition: color 0.3s ease;
+}
+
+.footer-links-col ul li a:hover,
+.footer-services-col ul li a:hover {
+    color: #4a806c; /* Green on hover */
+}
+
+.footer-locations-col p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: #eee;
+    margin-bottom: 15px;
+}
+
+.footer-locations-col p strong {
+    color: #fff; /* Make company name brighter */
+}
+
+.footer-locations-col a {
+    color: #eee;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-locations-col a:hover {
+    color: #4a806c; /* Green on hover */
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 20px 5%;
+    margin-top: 50px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Separator line */
+    font-size: 0.85em;
+    color: #bbb;
+    position: relative; 
+    z-index: 2;
+}
+
+/* Scroll to Top Button */
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #4a806c; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    font-size: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0; /* Hidden by default */
+    visibility: hidden; /* Hidden for accessibility */
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+}
+
+#scrollToTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+#scrollToTopBtn:hover {
+    transform: translateY(-3px); /* Slight lift on hover */
+    background-color: #2f5f4b; /* Darker green on hover */
+}
+
+
+/* Responsive Adjustments for Footer */
+
+@media (max-width: 1024px) {
+    .footer-content {
+        flex-direction: column; /* Stack columns vertically */
+        align-items: center; /* Center columns */
+        text-align: center; /* Center text within columns */
+        gap: 30px;
+    }
+
+    .footer-logo-col,
+    .footer-links-col,
+    .footer-services-col,
+    .footer-locations-col {
+        min-width: unset; /* Remove min-width override */
+        width: 100%; /* Take full width */
+        padding-right: 0; /* Remove right padding */
+    }
+
+    .footer-logo-col img {
+        margin: 0 auto 20px auto; /* Center logo */
+    }
+
+    .footer-links-col h3::after,
+    .footer-services-col h3::after,
+    .footer-locations-col h3::after {
+        left: 50%; /* Center the green lines */
+        transform: translateX(-50%);
+    }
+
+    .footer-links-col ul,
+    .footer-services-col ul {
+        display: flex; /* Make lists flex for horizontal wrapping */
+        flex-wrap: wrap;
+        justify-content: center; /* Center list items */
+        gap: 10px 20px; /* Adjust gap for wrapped items */
+    }
+
+    .footer-links-col ul li,
+    .footer-services-col ul li {
+        margin-bottom: 0; /* Remove bottom margin for flex items */
+    }
+}
+
+@media (max-width: 768px) {
+    .main-footer {
+        padding-top: 40px;
+    }
+    .footer-content {
+        gap: 25px;
+    }
+    .footer-logo-col img {
+        max-width: 150px;
+    }
+    .footer-logo-col p {
+        font-size: 0.85em;
+    }
+    .footer-links-col h3,
+    .footer-services-col h3,
+    .footer-locations-col h3 {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+    }
+    .footer-links-col h3::after,
+    .footer-services-col h3::after,
+    .footer-locations-col h3::after {
+        width: 50px;
+    }
+    .footer-links-col ul li a,
+    .footer-services-col ul li a,
+    .footer-locations-col p,
+    .footer-locations-col a {
+        font-size: 0.9em;
+    }
+    .footer-bottom {
+        padding: 15px 3%;
+        font-size: 0.8em;
+    }
+    #scrollToTopBtn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-footer {
+        padding-top: 30px;
+    }
+    .footer-content {
+        padding: 0 3%;
+    }
+    .footer-links-col h3,
+    .footer-services-col h3,
+    .footer-locations-col h3 {
+        font-size: 1.1em;
+        margin-bottom: 15px;
+    }
+    .footer-links-col h3::after,
+    .footer-services-col h3::after,
+    .footer-locations-col h3::after {
+        width: 40px;
+    }
+    .footer-bottom {
+        font-size: 0.75em;
+    }
+    #scrollToTopBtn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="trucktransport/logo.png" alt="King Road Carriers Pvt. Ltd.">
+        </div>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Services</a></li>
+            <li><a href="#">Testimonials</a></li>
+            <li><a href="#">Career</a></li>
+            <li><a href="#">Our Branches</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <div class="navbar-buttons mobile-buttons">
+                <a href="#" class="btn">Client Login</a>
+                <a href="#" class="btn">Track Consignment</a>
+            </div>
+        </ul>
+
+       
+
+        <div class="hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+<div class="carousel-container">
+    <div class="carousel-slides">
+        <div class="carousel-slide active">
+            <img src="trucktransport/king road carrier carousel new resize img1.png" alt="Delivery Truck 1">
+            
+        </div>
+        <div class="carousel-slide">
+            <img src="trucktransport/king road carrier carosule resize img2.png" alt="Delivery Truck 2">
+            
+        </div>
+        <div class="carousel-slide">
+            <img src="trucktransport/king road carrier carsoule resize img3.png" alt="Delivery Truck 3">
+            
+        </div>
+        <div class="carousel-slide">
+            <img src="trucktransport/king road carrier carsoule resize img4.png" alt="Delivery Truck 4">
+            
+        </div>
+    </div>
+
+    <button class="carousel-btn prev" aria-label="Previous Slide">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="carousel-btn next" aria-label="Next Slide">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+</div>
+   <section class="services-section">
+    <div class="services-header">
+        <h2>Our Services</h2>
+        <p>KRCPL is proud of being known as one of the quality transportation & following services providers on pan India basis.</p>
+    </div>
+
+    <div class="services-grid">
+        <div class="service-item">
+            <div class="service-image">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2024/01/hjg.jpg" alt="Transportation">
+            </div>
+            <h3>Transportation</h3>
+            <p>KRCPL offers excellent transport solutions on pan India basis.</p>
+            <a href="#" class="read-more">» Read More</a>
+        </div>
+
+        <div class="service-item">
+            <div class="service-image">
+                <img src="trucktransport/king road carriers img 1.png" alt="Third Party Logistics (3PL)">
+            </div>
+            <h3>Third Party Logistics (3PL)</h3>
+            <p>offering warehouse facility and management and secondary transportation.</p>
+            <a href="#" class="read-more">» Read More</a>
+        </div>
+
+        <div class="service-item">
+            <div class="service-image">
+                <img src="trucktransport/king raod carriers img 3.png" alt="Refrigerated Vans - Cold Chain Logistics">
+            </div>
+            <h3>Refrigerated Vans - Cold Chain Logistics</h3>
+            <p>launched a fleet of refrigerated vehicles for temperature sensitive medicine transportation across the country from temp. range 2° to -20° degree.</p>
+            <a href="#" class="read-more">» Read More</a>
+        </div>
+
+        <div class="service-item">
+            <div class="service-image">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2024/01/tarai-cargo.jpg" alt="Rail Cargo Services">
+            </div>
+            <h3>Rail Cargo Services</h3>
+            <p>offering rail cargo services for major shipments from almost all major cities in India.</p>
+            <a href="#" class="read-more">» Read More</a>
+        </div>
+
+        <div class="service-item">
+            <div class="service-image">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2024/01/jhg.jpg" alt="Warehousing Operation & Management & Distribution">
+            </div>
+            <h3>Warehousing Operation & Management & Distribution</h3>
+            <p>Warehouse Operations Management requires a systematic and process driven approach to maintain order and efficiency within a warehouse or distribution centre.</p>
+            <a href="#" class="read-more">» Read More</a>
+        </div>
+
+        <div class="service-item">
+            <div class="service-image">
+                <img src="trucktransport/king road carriers img2.png" alt="Customized Logistics Solutions">
+            </div>
+            <h3>Customized Logistics Solutions</h3>
+            <p>Are you looking for customized transport solutions? ... We have a sustainable solution for the transportation of FTL and LTL shipments in the entire Pan India.</p>
+            <a href="#" class="read-more">» Read More</a>
+        </div>
+    </div>
+</section>
+<section class="about-us-section">
+    <div class="about-us-content">
+        <div class="about-us-text">
+            <h2>About Us</h2>
+            <h3>DEDICATED Transport & Logistics Solutions</h3>
+            <p>KING ROAD CARRIERS PVT LTD, (KRCPL) is one of the prime companies engaged in the business of transportation and allied activities growing at a rapid speed. KRCPL is well established, professionally managed company having more than 70 Branch Offices across the country and now delivering till BENAPOLE (Bangladesh Border). We own a large fleet of 300 varieties of vehicles and 400+ attached vehicles to ensure the fastest delivery of goods</p>
+            <p>KRCPL is proud of being known as one of the quality transportation service providers on pan India level. The Company is successfully performing the tasks of carrying the consignments to every nook and corner of the country. The safety, swiftness and precision are ensured by maintaining a constant watch on all the operations.</p>
+            <a href="#" class="read-more-btn">READ MORE</a>
+        </div>
+        <div class="about-us-image">
+            <img src="trucktransport/King road carrier background img.png" alt="About Us Truck Background">
+            <div class="celebrating-overlay">
+                <p class="celebrating-text">CELEBRATING</p>
+                <div class="years-block">
+                    <span class="big-number">25</span>
+                    <span class="years-text">years</span>
+                </div>
+                <p class="date-range">2000 - 2025</p>
+                <p class="since-text">SINCE 2000</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="domains-section">
+    <div class="domains-header">
+        <h2>Our Specialized Domains</h2>
+    </div>
+
+    <div class="domains-grid">
+        <div class="domain-item">
+            <div class="domain-icon">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2023/11/APPARELS.png" alt="Apparels Icon">
+            </div>
+            <p>APPARELS</p>
+        </div>
+
+        <div class="domain-item">
+            <div class="domain-icon">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2023/11/costmetics.png" alt="Cosmetics Icon">
+            </div>
+            <p>COSMETICS</p>
+        </div>
+
+        <div class="domain-item">
+            <div class="domain-icon">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2023/11/paint.png" alt="Oils, Paints & Lubricants Icon">
+            </div>
+            <p>OILS, PAINTS & LUBRICANTS</p>
+        </div>
+
+        <div class="domain-item">
+            <div class="domain-icon">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2023/11/electronics.png" alt="Consumer Electronics Icon">
+            </div>
+            <p>CONSUMER ELECTRONICS</p>
+        </div>
+
+        <div class="domain-item">
+            <div class="domain-icon">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2023/11/hygine.png" alt="FMCG & Hygiene Icon">
+            </div>
+            <p>FMCG & HYGIENE</p>
+        </div>
+
+        <div class="domain-item">
+            <div class="domain-icon">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2023/11/supplements.png" alt="Nutritional Supplements Icon">
+            </div>
+            <p>NUTRITIONAL SUPPLEMENTS</p>
+        </div>
+
+        <div class="domain-item">
+            <div class="domain-icon">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2023/11/pharmacy.png" alt="Drugs & Pharmaceuticals Icon">
+            </div>
+            <p>DRUGS & PHARMACEUTICALS</p>
+        </div>
+
+        <div class="domain-item">
+            <div class="domain-icon">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2023/11/batteries.png" alt="Inverter & Batteries Icon">
+            </div>
+            <p>INVERTER & BATTERIES</p>
+        </div>
+    </div>
+</section>
+<section class="stats-section">
+    <div class="stats-background-overlay"></div>
+    <div class="stats-grid">
+        <div class="stat-item">
+            <div class="stat-icon">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2023/12/branches-1.png" alt="Branches Icon">
+            </div>
+            <div class="stat-value" data-target="70">0</div>
+            <p>TOTAL BRANCHES</p>
+        </div>
+
+        <div class="stat-item">
+            <div class="stat-icon">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2023/12/countries-covered-2-1.png" alt="Countries Covered Icon">
+            </div>
+            <div class="stat-value" data-target="4">0</div>
+            <p>COUNTRIES COVERED</p>
+        </div>
+
+        <div class="stat-item">
+            <div class="stat-icon">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2023/12/VEHICLES-1.png" alt="Owned Vehicles Icon">
+            </div>
+            <div class="stat-value" data-target="300">0</div>
+            <p>OWNED VEHICLES</p>
+        </div>
+
+        <div class="stat-item">
+            <div class="stat-icon">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2024/10/Group-244.png" alt="Years of Experience Icon">
+            </div>
+            <div class="stat-value" data-target="25">0</div>
+            <p>YEAR OF EXPERIENCE</p>
+        </div>
+
+        <div class="stat-item">
+            <div class="stat-icon">
+                <img src="https://flyinggreen.co.in/wp-content/uploads/2023/12/goods-1.png" alt="Tons of Goods Icon">
+            </div>
+            <div class="stat-value" data-target="62500">0</div>
+            <p>TONS OF GOODS</p>
+        </div>
+    </div>
+</section>
+<section class="customers-section">
+    <div class="customers-header">
+        <h2>Our Happy & Growing Customers</h2>
+    </div>
+
+    <div class="testimonial-container">
+        <div class="testimonial-box">
+            <p>Good Culture, Dynamic marketing team and tracking team. Knowledge based company and most important Operational team is very good.</p>
+        </div>
+        <div class="customer-info">
+            <div class="customer-image">
+                <img src="trucktransport/person image.png" alt="Customer Image">
+            </div>
+            <div class="rating-stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <p class="customer-name">Chetan Garg</p>
+        </div>
+        <div class="testimonial-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</section>
+<footer class="main-footer">
+    <div class="footer-video-background">
+        <video autoplay muted loop playsinline class="footer-video">
+            <source src="trucktransport/moving truck resize.mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div> </div>
+
+    <div class="footer-content">
+        <div class="footer-logo-col">
+            <img src="trucktransport/logo.png" alt="King Road Carriers Pvt. Ltd. Footer Logo">
+            <p>KRCPL is a leading logistics and transport company providing efficient and reliable services since 2000. We ensure safe and timely delivery across India and beyond.</p>
+        </div>
+
+        <div class="footer-links-col">
+            <h3>QUICK LINKS</h3>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Our Services</a></li>
+                <li><a href="#">Testimonials</a></li>
+                <li><a href="#">Career</a></li>
+                <li><a href="#">Our Branches</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-services-col">
+            <h3>OUR SERVICES</h3>
+            <ul>
+                <li><a href="#">Transportation</a></li>
+                <li><a href="#">Third Party Logistics (3PL)</a></li>
+                <li><a href="#">Refrigerated Vans - Cold Chain Logistics</a></li>
+                <li><a href="#">Rail Cargo Services</a></li>
+                <li><a href="#">Warehousing Operation Management & Distribution</a></li>
+                <li><a href="#">Customized Logistics Solutions</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-locations-col">
+            <h3>LOCATIONS</h3>
+            <p><strong>King Road Carrier</strong><br> B-52, Hapur Road - IV,<br> Meerut 201009 (U.P.)</p>
+            <h3>PHONE</h3>
+            <p>+91 120 2546865<br>+91 120 2956716</p>
+            <h3>EMAIL</h3>
+            <p><a href="mailto:info@kingroadcarrier.co.in">info@kingroadcarrier.co.in</a><br><a href="mailto:kr@kingroadcarrier.co.in">kr@kingroadcarrier.co.in</a></p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© Copyright 2025 All Rights Reserved. King Road Carriers Pvt. Ltd. (www.kingroadcarrier.co.in) | Designed & Developed By: Art Studio</p>
+    </div>
+
+    <button id="scrollToTopBtn" aria-label="Scroll to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</footer>
+
+
+
+    
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const desktopButtons = document.querySelector('.navbar-buttons.desktop-buttons');
+        const mobileButtons = document.querySelector('.navbar-buttons.mobile-buttons'); // Corrected selector
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            if (navLinks.classList.contains('active')) {
+                desktopButtons.style.display = 'none'; // Hide desktop buttons
+            } else {
+                // When menu closes, revert button display based on screen size
+                if (window.innerWidth > 1024) { // Assuming 1024px is your breakpoint for desktop
+                    desktopButtons.style.display = 'flex';
+                } else {
+                    desktopButtons.style.display = 'none';
+                }
+            }
+        });
+
+        // Close menu when a link is clicked (optional)
+        document.querySelectorAll('.nav-links li a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    navLinks.classList.remove('active');
+                    // Ensure buttons revert correctly
+                    if (window.innerWidth > 1024) {
+                        desktopButtons.style.display = 'flex';
+                    } else {
+                        desktopButtons.style.display = 'none';
+                    }
+                }
+            });
+        });
+
+        // Handle resizing: close mobile menu and show/hide buttons appropriately
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1024) {
+                navLinks.classList.remove('active');
+                desktopButtons.style.display = 'flex';
+            } else {
+                desktopButtons.style.display = 'none';
+            }
+        });
+
+        // Initial check on load to set button visibility
+        window.addEventListener('load', () => {
+            if (window.innerWidth > 1024) {
+                desktopButtons.style.display = 'flex';
+            } else {
+                desktopButtons.style.display = 'none';
+            }
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+    const carouselSlides = document.querySelector('.carousel-slides');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+
+    let currentIndex = 0;
+    let autoSlideInterval;
+    const slideDuration = 5000; // 5 seconds for each slide
+
+    function updateCarousel() {
+        const offset = -currentIndex * 100;
+        carouselSlides.style.transform = `translateX(${offset}%)`;
+    }
+
+    function showNextSlide() {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateCarousel();
+    }
+
+    function showPrevSlide() {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateCarousel();
+    }
+
+    function startAutoSlide() {
+        autoSlideInterval = setInterval(showNextSlide, slideDuration);
+    }
+
+    function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        startAutoSlide();
+    }
+
+    // Event Listeners for Buttons
+    nextBtn.addEventListener('click', () => {
+        showNextSlide();
+        resetAutoSlide(); // Reset timer on manual interaction
+    });
+
+    prevBtn.addEventListener('click', () => {
+        showPrevSlide();
+        resetAutoSlide(); // Reset timer on manual interaction
+    });
+
+    // Start auto-sliding when the page loads
+    startAutoSlide();
+
+    // Pause on hover over carousel container
+    const carouselContainer = document.querySelector('.carousel-container');
+    carouselContainer.addEventListener('mouseenter', () => {
+        clearInterval(autoSlideInterval);
+    });
+    carouselContainer.addEventListener('mouseleave', () => {
+        startAutoSlide();
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const celebratingOverlay = document.querySelector('.celebrating-overlay');
+
+    if (celebratingOverlay) {
+        const observerOptions = {
+            root: null, // relative to the viewport
+            rootMargin: '0px',
+            threshold: 0.5 // Trigger when 50% of the element is visible
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Element is in view, add the animate class
+                    entry.target.classList.add('animate');
+                } else {
+                    // Element is out of view, remove the animate class to reset for next time
+                    entry.target.classList.remove('animate');
+                }
+            });
+        }, observerOptions);
+
+        observer.observe(celebratingOverlay);
+    }
+});  
+document.addEventListener('DOMContentLoaded', () => {
+    const statValues = document.querySelectorAll('.stat-value');
+    const animatedStats = new Set(); // To keep track of which stats have started animating
+
+    const countUp = (element) => {
+        const target = +element.dataset.target;
+        const start = 0;
+        const duration = 2000; // 2 seconds for animation
+
+        let startTime = null;
+
+        const animate = (currentTime) => {
+            if (!startTime) startTime = currentTime;
+            const progress = (currentTime - startTime) / duration;
+            let current = Math.floor(progress * target);
+
+            // Special handling for "Tons of Goods" for comma and plus
+            if (element.dataset.target === "62500") {
+                if (current > 62500) current = 62500; // Cap at target
+                element.textContent = current.toLocaleString() + '+';
+            } else {
+                if (current > target) current = target; // Cap at target
+                element.textContent = current;
+            }
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                // Ensure final value is exactly the target
+                if (element.dataset.target === "62500") {
+                    element.textContent = target.toLocaleString() + '+';
+                } else {
+                    element.textContent = target;
+                }
+            }
+        };
+        requestAnimationFrame(animate);
+    };
+
+    const observerOptions = {
+        root: null, // relative to the viewport
+        rootMargin: '0px',
+        threshold: 0.5 // Trigger when 50% of the section is visible
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // When the section comes into view
+                statValues.forEach(stat => {
+                    if (!animatedStats.has(stat)) { // Animate only if not already animated
+                        countUp(stat);
+                        animatedStats.add(stat); // Mark as animated
+                    }
+                });
+            } else {
+                // When the section scrolls out of view, reset for re-animation
+                statValues.forEach(stat => {
+                    stat.textContent = "0"; // Reset text to 0
+                    animatedStats.delete(stat); // Allow re-animation
+                });
+            }
+        });
+    }, observerOptions);
+
+    // Observe the entire stats section, not individual items, to trigger all at once
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+});
+document.addEventListener('DOMContentLoaded', () => {
+    // ---  Playback on Scroll ---
+    const footerVideo = document.querySelector('.footer-video');
+    if (footerVideo) {
+        const videoObserverOptions = {
+            root: null, // relative to the viewport
+            rootMargin: '0px',
+            threshold: 0.5 
+        };
+
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                   
+                    footerVideo.play().catch(error => {
+                        console.error('Video autoplay failed:', error);
+                        // Handle autoplay restrictions (e.g., show a play button)
+                    });
+                } else {
+                   
+                    footerVideo.pause();
+                }
+            });
+        }, videoObserverOptions);
+
+        videoObserver.observe(footerVideo);
+    }
+
+    // --- Scroll to Top Button ---
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) { // Show button after scrolling down 300px
+            scrollToTopBtn.classList.add('show');
+        } else {
+            scrollToTopBtn.classList.remove('show');
+        }
+    });
+
+    // Scroll to top on button click
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Smooth scroll animation
+        });
+    });
+});
+
+
+  </script>
+</body>
+</html>
