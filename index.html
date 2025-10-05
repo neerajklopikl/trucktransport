@@ -23,6 +23,10 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth; /* This enables smooth scrolling for the whole page */
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -38,7 +42,11 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             height: var(--navbar-height); /* Set height for larger screens */
             width: var(--navbar-width); /* Set width for larger screens */
-            position: relative; /* For z-index and overflow if needed */
+            position: fixed; /* Make navbar sticky */
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Ensure it stays on top */
+            width: 100%;
         }
 
         .navbar-logo {
@@ -194,11 +202,12 @@
         /* Carousel Container */
 .carousel-container {
     position: relative;
-    width: 1520.8px; /* Fixed width for desktop */
+    width: 100%; /* Use full width */
     height: 514.85px; /* Fixed height for desktop */
     overflow: hidden;
     margin: 0 auto; /* Center the carousel */
     background-color: #f0f0f0; /* Fallback background */
+    margin-top: 161.225px; /* Adjust for fixed navbar height */
 }
 
 /* Individual Slides */
@@ -345,6 +354,12 @@
     }
     .carousel-slide .center-text {
         left: 50%; /* Ensure it stays centered */
+    }
+}
+
+@media (max-width: 1024px) {
+    .carousel-container {
+        margin-top: 80px; /* Adjust for smaller navbar height */
     }
 }
 
@@ -1838,27 +1853,27 @@
 
 </style>
 </head>
-<body>
+<body id="home">
     <nav class="navbar">
         <div class="navbar-logo">
-            <img src="trucktransport/logo.png" alt="King Road Carriers Pvt. Ltd.">
+            <a href="#home"><img src="trucktransport/logo.png" alt="King Road Carriers Pvt. Ltd."></a>
         </div>
 
         <ul class="nav-links" id="navLinks">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Our Services</a></li>
-            <li><a href="#">Testimonials</a></li>
-            <li><a href="#">Career</a></li>
-            <li><a href="#">Our Branches</a></li>
-            <li><a href="#">Contact Us</a></li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about-us">About Us</a></li>
+            <li><a href="#services">Our Services</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#career">Career</a></li>
+            <li><a href="#branches">Our Branches</a></li>
+            <li><a href="#contact-us">Contact Us</a></li>
             <div class="navbar-buttons mobile-buttons">
                 <a href="#" class="btn">Client Login</a>
                 <a href="#" class="btn">Track Consignment</a>
             </div>
         </ul>
-
-       
+        
+        
 
         <div class="hamburger" id="hamburger">
             <i class="fas fa-bars"></i>
@@ -1891,7 +1906,7 @@
         <i class="fas fa-chevron-right"></i>
     </button>
 </div>
-   <section class="services-section">
+   <section class="services-section" id="services">
     <div class="services-header">
         <h2>Our Services</h2>
         <p>KRCPL is proud of being known as one of the quality transportation & following services providers on pan India basis.</p>
@@ -1953,7 +1968,7 @@
         </div>
     </div>
 </section>
-<section class="about-us-section">
+<section class="about-us-section" id="about-us">
     <div class="about-us-content">
         <div class="about-us-text">
             <h2>About Us</h2>
@@ -1977,7 +1992,7 @@
     </div>
 </section>
 
-<section class="domains-section">
+<section class="domains-section" id="career">
     <div class="domains-header">
         <h2>Our Specialized Domains</h2>
     </div>
@@ -2040,7 +2055,7 @@
         </div>
     </div>
 </section>
-<section class="stats-section">
+<section class="stats-section" id="branches">
     <div class="stats-background-overlay"></div>
     <div class="stats-grid">
         <div class="stat-item">
@@ -2084,7 +2099,7 @@
         </div>
     </div>
 </section>
-<section class="customers-section">
+<section class="customers-section" id="testimonials">
     <div class="customers-header">
         <h2>Our Happy & Growing Customers</h2>
     </div>
@@ -2115,7 +2130,7 @@
         </div>
     </div>
 </section>
-<footer class="main-footer">
+<footer class="main-footer" id="contact-us">
     <div class="footer-video-background">
         <video autoplay muted loop playsinline class="footer-video">
             <source src="trucktransport/moving truck resize.mp4">
@@ -2132,13 +2147,13 @@
         <div class="footer-links-col">
             <h3>QUICK LINKS</h3>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Our Services</a></li>
-                <li><a href="#">Testimonials</a></li>
-                <li><a href="#">Career</a></li>
-                <li><a href="#">Our Branches</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about-us">About Us</a></li>
+                <li><a href="#services">Our Services</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#career">Career</a></li>
+                <li><a href="#branches">Our Branches</a></li>
+                <li><a href="#contact-us">Contact Us</a></li>
             </ul>
         </div>
 
@@ -2165,7 +2180,7 @@
     </div>
 
     <div class="footer-bottom">
-        <p>© Copyright 2025 All Rights Reserved. King Road Carriers Pvt. Ltd. (www.kingroadcarrier.co.in) | Designed & Developed By: Art Studio</p>
+        <p>© Powered By AI BAREJ TECH</p>
     </div>
 
     <button id="scrollToTopBtn" aria-label="Scroll to Top">
@@ -2178,260 +2193,250 @@
     
 
     <script>
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-        const desktopButtons = document.querySelector('.navbar-buttons.desktop-buttons');
-        const mobileButtons = document.querySelector('.navbar-buttons.mobile-buttons'); // Corrected selector
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            const desktopButtons = document.querySelector('.navbar-buttons.desktop-buttons');
 
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            if (navLinks.classList.contains('active')) {
-                desktopButtons.style.display = 'none'; // Hide desktop buttons
-            } else {
-                // When menu closes, revert button display based on screen size
-                if (window.innerWidth > 1024) { // Assuming 1024px is your breakpoint for desktop
-                    desktopButtons.style.display = 'flex';
-                } else {
-                    desktopButtons.style.display = 'none';
-                }
-            }
-        });
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
 
-        // Close menu when a link is clicked (optional)
-        document.querySelectorAll('.nav-links li a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 1024) {
+            // Close menu when a link is clicked on mobile
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 1024) {
+                        navLinks.classList.remove('active');
+                    }
+                });
+            });
+
+            // Handle resizing to ensure correct button visibility
+            const handleResize = () => {
+                if (window.innerWidth > 1024) {
                     navLinks.classList.remove('active');
-                    // Ensure buttons revert correctly
-                    if (window.innerWidth > 1024) {
-                        desktopButtons.style.display = 'flex';
-                    } else {
-                        desktopButtons.style.display = 'none';
+                    if (desktopButtons) {
+                       desktopButtons.style.display = 'flex';
+                    }
+                } else {
+                     if (desktopButtons) {
+                       desktopButtons.style.display = 'none';
                     }
                 }
+            };
+
+            window.addEventListener('resize', handleResize);
+            // Initial check on load
+            handleResize();
+        });
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const carouselSlides = document.querySelector('.carousel-slides');
+            if (!carouselSlides) return;
+            const slides = document.querySelectorAll('.carousel-slide');
+            const prevBtn = document.querySelector('.carousel-btn.prev');
+            const nextBtn = document.querySelector('.carousel-btn.next');
+
+            let currentIndex = 0;
+            let autoSlideInterval;
+            const slideDuration = 5000; // 5 seconds for each slide
+
+            function updateCarousel() {
+                const offset = -currentIndex * 100;
+                carouselSlides.style.transform = `translateX(${offset}%)`;
+            }
+
+            function showNextSlide() {
+                currentIndex = (currentIndex + 1) % slides.length;
+                updateCarousel();
+            }
+
+            function showPrevSlide() {
+                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                updateCarousel();
+            }
+
+            function startAutoSlide() {
+                clearInterval(autoSlideInterval); // Clear any existing interval
+                autoSlideInterval = setInterval(showNextSlide, slideDuration);
+            }
+
+            function resetAutoSlide() {
+                clearInterval(autoSlideInterval);
+                startAutoSlide();
+            }
+
+            // Event Listeners for Buttons
+            nextBtn.addEventListener('click', () => {
+                showNextSlide();
+                resetAutoSlide(); // Reset timer on manual interaction
+            });
+
+            prevBtn.addEventListener('click', () => {
+                showPrevSlide();
+                resetAutoSlide(); // Reset timer on manual interaction
+            });
+
+            // Start auto-sliding when the page loads
+            startAutoSlide();
+
+            // Pause on hover over carousel container
+            const carouselContainer = document.querySelector('.carousel-container');
+            carouselContainer.addEventListener('mouseenter', () => {
+                clearInterval(autoSlideInterval);
+            });
+            carouselContainer.addEventListener('mouseleave', () => {
+                startAutoSlide();
             });
         });
 
-        // Handle resizing: close mobile menu and show/hide buttons appropriately
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 1024) {
-                navLinks.classList.remove('active');
-                desktopButtons.style.display = 'flex';
-            } else {
-                desktopButtons.style.display = 'none';
-            }
-        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const celebratingOverlay = document.querySelector('.celebrating-overlay');
 
-        // Initial check on load to set button visibility
-        window.addEventListener('load', () => {
-            if (window.innerWidth > 1024) {
-                desktopButtons.style.display = 'flex';
-            } else {
-                desktopButtons.style.display = 'none';
+            if (celebratingOverlay) {
+                const observerOptions = {
+                    root: null, // relative to the viewport
+                    rootMargin: '0px',
+                    threshold: 0.5 // Trigger when 50% of the element is visible
+                };
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Element is in view, add the animate class
+                            entry.target.classList.add('animate');
+                        } else {
+                            // Element is out of view, remove the animate class to reset for next time
+                            entry.target.classList.remove('animate');
+                        }
+                    });
+                }, observerOptions);
+
+                observer.observe(celebratingOverlay);
+            }
+        });  
+        document.addEventListener('DOMContentLoaded', () => {
+            const statValues = document.querySelectorAll('.stat-value');
+            if(statValues.length === 0) return;
+            
+            const animatedStats = new Set(); // To keep track of which stats have started animating
+
+            const countUp = (element) => {
+                const target = +element.dataset.target;
+                const start = 0;
+                const duration = 2000; // 2 seconds for animation
+
+                let startTime = null;
+
+                const animate = (currentTime) => {
+                    if (!startTime) startTime = currentTime;
+                    const progress = (currentTime - startTime) / duration;
+                    let current = Math.floor(progress * target);
+
+                    // Special handling for "Tons of Goods" for comma and plus
+                    if (element.dataset.target === "62500") {
+                        if (current > 62500) current = 62500; // Cap at target
+                        element.textContent = current.toLocaleString() + '+';
+                    } else {
+                        if (current > target) current = target; // Cap at target
+                        element.textContent = current;
+                    }
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        // Ensure final value is exactly the target
+                        if (element.dataset.target === "62500") {
+                            element.textContent = target.toLocaleString() + '+';
+                        } else {
+                            element.textContent = target;
+                        }
+                    }
+                };
+                requestAnimationFrame(animate);
+            };
+
+            const observerOptions = {
+                root: null, // relative to the viewport
+                rootMargin: '0px',
+                threshold: 0.5 // Trigger when 50% of the section is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // When the section comes into view
+                        statValues.forEach(stat => {
+                            if (!animatedStats.has(stat)) { // Animate only if not already animated
+                                countUp(stat);
+                                animatedStats.add(stat); // Mark as animated
+                            }
+                        });
+                    } else {
+                        // When the section scrolls out of view, reset for re-animation
+                        statValues.forEach(stat => {
+                            stat.textContent = "0"; // Reset text to 0
+                            animatedStats.delete(stat); // Allow re-animation
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            // Observe the entire stats section, not individual items, to trigger all at once
+            const statsSection = document.querySelector('.stats-section');
+            if (statsSection) {
+                observer.observe(statsSection);
             }
         });
         document.addEventListener('DOMContentLoaded', () => {
-    const carouselSlides = document.querySelector('.carousel-slides');
-    const slides = document.querySelectorAll('.carousel-slide');
-    const prevBtn = document.querySelector('.carousel-btn.prev');
-    const nextBtn = document.querySelector('.carousel-btn.next');
+            // ---  Playback on Scroll ---
+            const footerVideo = document.querySelector('.footer-video');
+            if (footerVideo) {
+                const videoObserverOptions = {
+                    root: null, // relative to the viewport
+                    rootMargin: '0px',
+                    threshold: 0.5 
+                };
 
-    let currentIndex = 0;
-    let autoSlideInterval;
-    const slideDuration = 5000; // 5 seconds for each slide
-
-    function updateCarousel() {
-        const offset = -currentIndex * 100;
-        carouselSlides.style.transform = `translateX(${offset}%)`;
-    }
-
-    function showNextSlide() {
-        currentIndex = (currentIndex + 1) % slides.length;
-        updateCarousel();
-    }
-
-    function showPrevSlide() {
-        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-        updateCarousel();
-    }
-
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(showNextSlide, slideDuration);
-    }
-
-    function resetAutoSlide() {
-        clearInterval(autoSlideInterval);
-        startAutoSlide();
-    }
-
-    // Event Listeners for Buttons
-    nextBtn.addEventListener('click', () => {
-        showNextSlide();
-        resetAutoSlide(); // Reset timer on manual interaction
-    });
-
-    prevBtn.addEventListener('click', () => {
-        showPrevSlide();
-        resetAutoSlide(); // Reset timer on manual interaction
-    });
-
-    // Start auto-sliding when the page loads
-    startAutoSlide();
-
-    // Pause on hover over carousel container
-    const carouselContainer = document.querySelector('.carousel-container');
-    carouselContainer.addEventListener('mouseenter', () => {
-        clearInterval(autoSlideInterval);
-    });
-    carouselContainer.addEventListener('mouseleave', () => {
-        startAutoSlide();
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const celebratingOverlay = document.querySelector('.celebrating-overlay');
-
-    if (celebratingOverlay) {
-        const observerOptions = {
-            root: null, // relative to the viewport
-            rootMargin: '0px',
-            threshold: 0.5 // Trigger when 50% of the element is visible
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Element is in view, add the animate class
-                    entry.target.classList.add('animate');
-                } else {
-                    // Element is out of view, remove the animate class to reset for next time
-                    entry.target.classList.remove('animate');
-                }
-            });
-        }, observerOptions);
-
-        observer.observe(celebratingOverlay);
-    }
-});  
-document.addEventListener('DOMContentLoaded', () => {
-    const statValues = document.querySelectorAll('.stat-value');
-    const animatedStats = new Set(); // To keep track of which stats have started animating
-
-    const countUp = (element) => {
-        const target = +element.dataset.target;
-        const start = 0;
-        const duration = 2000; // 2 seconds for animation
-
-        let startTime = null;
-
-        const animate = (currentTime) => {
-            if (!startTime) startTime = currentTime;
-            const progress = (currentTime - startTime) / duration;
-            let current = Math.floor(progress * target);
-
-            // Special handling for "Tons of Goods" for comma and plus
-            if (element.dataset.target === "62500") {
-                if (current > 62500) current = 62500; // Cap at target
-                element.textContent = current.toLocaleString() + '+';
-            } else {
-                if (current > target) current = target; // Cap at target
-                element.textContent = current;
-            }
-
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            } else {
-                // Ensure final value is exactly the target
-                if (element.dataset.target === "62500") {
-                    element.textContent = target.toLocaleString() + '+';
-                } else {
-                    element.textContent = target;
-                }
-            }
-        };
-        requestAnimationFrame(animate);
-    };
-
-    const observerOptions = {
-        root: null, // relative to the viewport
-        rootMargin: '0px',
-        threshold: 0.5 // Trigger when 50% of the section is visible
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // When the section comes into view
-                statValues.forEach(stat => {
-                    if (!animatedStats.has(stat)) { // Animate only if not already animated
-                        countUp(stat);
-                        animatedStats.add(stat); // Mark as animated
-                    }
-                });
-            } else {
-                // When the section scrolls out of view, reset for re-animation
-                statValues.forEach(stat => {
-                    stat.textContent = "0"; // Reset text to 0
-                    animatedStats.delete(stat); // Allow re-animation
-                });
-            }
-        });
-    }, observerOptions);
-
-    // Observe the entire stats section, not individual items, to trigger all at once
-    const statsSection = document.querySelector('.stats-section');
-    if (statsSection) {
-        observer.observe(statsSection);
-    }
-});
-document.addEventListener('DOMContentLoaded', () => {
-    // ---  Playback on Scroll ---
-    const footerVideo = document.querySelector('.footer-video');
-    if (footerVideo) {
-        const videoObserverOptions = {
-            root: null, // relative to the viewport
-            rootMargin: '0px',
-            threshold: 0.5 
-        };
-
-        const videoObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                   
-                    footerVideo.play().catch(error => {
-                        console.error('Video autoplay failed:', error);
-                        // Handle autoplay restrictions (e.g., show a play button)
+                const videoObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                           
+                            footerVideo.play().catch(error => {
+                                console.error('Video autoplay failed:', error);
+                                // Handle autoplay restrictions (e.g., show a play button)
+                            });
+                        } else {
+                           
+                            footerVideo.pause();
+                        }
                     });
+                }, videoObserverOptions);
+
+                videoObserver.observe(footerVideo);
+            }
+
+            // --- Scroll to Top Button ---
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+            // Show/hide button based on scroll position
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) { // Show button after scrolling down 300px
+                    scrollToTopBtn.classList.add('show');
                 } else {
-                   
-                    footerVideo.pause();
+                    scrollToTopBtn.classList.remove('show');
                 }
             });
-        }, videoObserverOptions);
 
-        videoObserver.observe(footerVideo);
-    }
-
-    // --- Scroll to Top Button ---
-    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-
-    // Show/hide button based on scroll position
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) { // Show button after scrolling down 300px
-            scrollToTopBtn.classList.add('show');
-        } else {
-            scrollToTopBtn.classList.remove('show');
-        }
-    });
-
-    // Scroll to top on button click
-    scrollToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // Smooth scroll animation
+            // Scroll to top on button click
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // Smooth scroll animation
+                });
+            });
         });
-    });
-});
 
 
   </script>
